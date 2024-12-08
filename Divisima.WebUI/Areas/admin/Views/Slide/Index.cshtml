@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Slide>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row" style="display: block;">
+            <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                    <div class="x_title" style="border-bottom:none">
+                        <h2>Slayt Yönetimi</h2>
+                        <a class="btn btn-primary" style="color:#fff;float:right" asp-action="New">Yeni Kayıt</a>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <img class="kResim" />
+                            <table class="table table-striped jambo_table bulk_action" onmouseout="$('.kResim').hide()">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">Slayt Başlığı </th>
+                                        <th class="column-title">Slayt Açıklaması</th>
+                                        <th class="column-title">Tarihi</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Slide s in Model)
+                                    {
+                                        <tr class="hoverPicture" picture="@s.Picture">
+                                            <td><a asp-action="Edit" asp-route-id="@s.ID">@s?.Title</a></td>
+                                            <td>@s?.Description</td>
+                                            <td>
+                                                @if (s?.RecDate != null)
+                                                {
+                                                    <span>@s.RecDate.Value.ToString("MM/dd/yyyy").Replace(".", "/")</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Belirtilmedi</span>
+                                                }
+                                            </td>
+                                            <td><button type="button" class="btn btn-danger" onclick="deleteSlideRecord(@s.ID);">Sil</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

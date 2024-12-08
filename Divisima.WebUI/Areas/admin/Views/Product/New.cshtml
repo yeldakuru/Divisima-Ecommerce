@@ -1,0 +1,97 @@
+﻿@model ProductVM
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Yeni Ürün Ekle</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-action="New" method="post" enctype="multipart/form-data">
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.Name"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Product.Name" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.CategoryID"></label>
+                                <div class="col-sm-10 ">
+
+
+                                    <select asp-for="@Model.Product.CategoryID" class="form-control" asp-items="@Model.Categories.Select(s => new SelectListItem {Text=s.Name, Value=s.ID.ToString()})"></select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.Price"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Product.Price" class="form-control " />
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.Description"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Product.Description" class="form-control " />
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.Detail"></label>
+                                <div class="col-sm-10 ">
+                                    <textarea asp-for="@Model.Product.Detail" class="editor" rows="10" cols="80">  </textarea>
+
+
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.Stock"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Product.Stock" class="form-control " />
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Product.RecDate"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Product.RecDate" class="form-control " />
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-sm-2">
+                                </div>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-success">Ekle</button>
+                                    <a class="btn btn-primary" asp-action="Cancel">İptal</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section customScript {
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        $(".editor").each(
+            function () {
+                CKEDITOR.replace($(this).attr("id"));
+            }
+        );
+    </script>
+}
+
+

@@ -1,0 +1,46 @@
+﻿@model Category
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Yeni Kategori Ekle</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-action="New" method="post" enctype="multipart/form-data">
+
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.Name"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.Name" class="form-control " />
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-sm-2" asp-for="@Model.DisplayIndex"></label>
+                                <div class="col-sm-10 ">
+                                    <input asp-for="@Model.DisplayIndex" class="form-control " />
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-10">
+                                    <button type="submit" class="btn btn-success">Ekle</button>
+                                    <a class="btn btn-danger" asp-action="Cancel">İptal</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- /page content -->

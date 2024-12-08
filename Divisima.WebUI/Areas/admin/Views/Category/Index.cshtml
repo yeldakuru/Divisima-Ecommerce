@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Category>
+<div class="right_col" role="main">
+    <div class="">
+        <div class="row" style="display: block;">
+            <div class="col-md-12 col-sm-12  ">
+                <div class="x_panel">
+                    <div class="x_title" style="border-bottom:none">
+                        <h2>Kategori Yönetimi</h2>
+                        <a class="btn btn-primary" style="color:#fff;float:right" asp-action="New">Yeni Kayıt</a>
+                    </div>
+                    <div class="x_content">
+                        <div class="table-responsive">
+                            <img class="kResim" />
+                            <table class="table table-striped jambo_table bulk_action" onmouseout="$('.kResim').hide()">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">Kategori ID'si</th>
+                                        <th class="column-title">Kategori Başlığı </th>
+                                        <th class="column-title">Görünlenme Sırası</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Category s in Model)
+                                    {
+
+                                        <tr>
+                                            <td>@s?.ID</td>
+                                            <td><a asp-action="Edit" asp-route-id="@s.ID">@s?.Name</a></td>
+
+                                            <td>@s?.DisplayIndex</td>
+                                            <td><button type="button" class="btn btn-danger" onclick="deleteCategoryRecord(@s.ID);">Sil</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

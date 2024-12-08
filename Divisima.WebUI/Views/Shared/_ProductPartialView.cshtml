@@ -1,0 +1,23 @@
+﻿@model Product
+
+
+<div class="product-item">
+	<div class="pi-pic">
+		@if (Model.ProductImages != null && Model.ProductImages.Any())
+		{
+			<a asp-controller="Product" asp-action="Detail" asp-route-name="@(GeneralTool.UrlConvert(Model.Name))" asp-route-id="@Model.ID"><img src="@Model.ProductImages.FirstOrDefault().Path" alt="@Model.Name"></a>
+		}
+		else
+		{
+			<img src="~/product/nopicture.jpg" alt="@Model.Name">
+		}
+		<div class="pi-links">
+			<a asp-controller="Product" asp-action="Detail" asp-route-name="@(GeneralTool.UrlConvert(Model.Name))" asp-route-id="@Model.ID" class="add-card"><i class="flaticon-bag"></i><span>Ürün Detay</span></a>
+			<a href="#" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+		</div>
+	</div>
+	<div class="pi-text">
+		<h6 style="color:green; font-size:20px;">@Model.Price ₺</h6>
+		<p>@Model.Name</p>
+	</div>
+</div>

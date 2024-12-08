@@ -1,0 +1,133 @@
+﻿@model ProductVM
+
+@{
+	ViewBag.Title = Model.Product.Name;
+	ViewBag.Description = "Ürünlermiz en güzel kaliteli, materyalleri kullanarak çok ince hassas malzemlerle yapılmıştır.";
+	ViewBag.Keywords = "En Güzel Kazak, En İyi Ürün, En Harika Kumaş";
+}
+
+<!-- Page info -->
+<div class="page-top-info">
+	<div class="container">
+		<h4>@Model.Product.Name</h4>
+		<div class="site-pagination">
+			<a href="/">Ana Sayfa</a> /
+			<a href="/sepetim">Alışveriş Sepeti</a>
+		</div>
+	</div>
+</div>
+<!-- Page info end -->
+<!-- product section -->
+<section class="product-section">
+	<div class="container">
+		<div class="back-link">
+			<a asp-controller="Product" asp-action="Index" asp-route-cat="@Model.Product.CategoryID" > @Model.Product.Category.Name</a>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="product-pic-zoom">
+					@if (Model.Product.ProductImages.Any())
+					{
+						<img class="product-big-img" src="@Model.Product.ProductImages.FirstOrDefault().Path" alt="@Model.Product.Name">
+					}
+					else
+					{
+						<img src="~/product/nopicture.jpg" alt="Resim Yok">
+					}
+				</div>
+				<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+					<div class="product-thumbs-track">
+
+						@{
+							int i = 0;
+							foreach (ProductImage p in Model.Product.ProductImages)
+							{
+								<div class="pt @(i == 0 ? "active" : "")" data-imgbigurl="@p.Path"><img src="@p.Path" alt="@p.Product.Name"></div>
+								i++;
+							}
+							
+						}
+
+
+						
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 product-details">
+				<h2 class="p-title">@Model.Product.Name</h2>
+				<h3 class="p-price">@Model.Product.Price</h3>
+				<h4 class="p-stock">					
+					Stok Durumu:
+					@if(Model.Product.Stock > 0)
+					{
+						<span style="color:green" >MEVCUT</span>
+					}
+					else
+					{
+						<span style="color:red">TÜKENDİ</span>
+					}
+
+				</h4>
+				
+				@if (Model.Product.Stock > 0)
+				{	
+					<div class="quantity">
+						<p>Miktar</p>
+						<div class="pro-qty"><input type="text" value="1"></div>
+					</div>
+					<button class="site-btn" onclick="sepeteEkle(@Model.Product.ID)">SEPETE EKLE</button>
+				}
+				
+				<div id="accordion" class="accordion-area">
+					<div class="panel">
+						<div class="panel-header" id="headingOne">
+							<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Ürün Açıklaması</button>
+						</div>
+						<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+							<div class="panel-body">@Model.Product.Description</div>
+						</div>
+					</div>
+					<div class="panel">
+						<div class="panel-header" id="headingTwo">
+							<button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">care details </button>
+						</div>
+						<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+							<div class="panel-body">
+								<img src="./img/cards.png" alt="">
+								<p>@Html.Raw(Model.Product.Detail)</p>
+							</div>
+						</div>
+					</div>
+					<div class="panel">
+						<div class="panel-header" id="headingThree">
+							<button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
+						</div>
+						<div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+							<div class="panel-body">
+								<h4>Kargo Bilgisi</h4>
+								<p>En geç Pazartesi Kargoda!</p>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- product section end -->
+<!-- RELATED PRODUCTS section -->
+<section class="related-product-section">
+	<div class="container">
+		<div class="section-title">
+			<h2>BENZER ÜRÜNLER</h2>
+		</div>
+		<div class="product-slider owl-carousel">
+		@foreach (Product p in Model.Products)
+			{
+				<partial name="_ProductPartialView" model="p"></partial>
+			}
+		</div>
+	</div>
+</section>
+<!-- RELATED PRODUCTS section end -->

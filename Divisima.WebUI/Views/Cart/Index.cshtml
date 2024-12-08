@@ -1,0 +1,83 @@
+﻿@model CartVM
+
+<!-- Page info -->
+<div class="page-top-info">
+	<div class="container">
+		<h4>Alışveriş Sepetim</h4>
+		<div class="site-pagination">
+			<a href="/">Ana Sayfa</a> /
+			<a asp-controller="Cart" asp-action="Index">Sepet</a>
+		</div>
+	</div>
+</div>
+<!-- Page info end -->
+<!-- cart section end -->
+<section class="cart-section spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="cart-table">
+					<h3>Alışveriş Sepetim</h3>
+					<div class="cart-table-warp">
+						<table>
+							<thead>
+								<tr>
+									<th class="product-th">Ürün</th>
+									<th class="quy-th">Miktar</th>
+									<th class="total-th">Fiyat</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (Cart c in Model.Carts)
+								{
+									<tr>
+										<td class="product-col">
+											<a asp-controller="Product" asp-action="Detail" asp-route-name="@(GeneralTool.UrlConvert(c.ProductName))" asp-route-id="@c.ProductID"><img src="@c.ProductPicture" alt="@c.ProductName"></a>
+											<div class="pc-title">
+												<h4>@c.ProductName</h4>
+												<p>@(c.ProductPrice.ToString("#,0") ?? "0")</p>
+											</div>
+										</td>
+										<td class="quy-col">
+											<div class="quantity">
+												<div class="pro-qty">
+													<input type="text" value="@c.Quantity">
+												</div>
+											</div>
+										</td>
+										<td class="total-col"><h4>@Convert.ToDecimal((c.ProductPrice * c.Quantity).ToString("#,0") ?? "0")</h4></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="total-cost">
+						<h6>Toplam <span>@Model.Carts.Sum(s => s.Quantity * s.ProductPrice).ToString("#,0") TL</span></h6>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 card-right">
+				<a href="" class="site-btn">Siparişi Tamamla</a>
+				<a href="/" class="site-btn sb-dark">Alışverişe Devam Et</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- cart section end -->
+<!-- Related product section -->
+<section class="related-product-section">
+	<div class="container">
+		<div class="section-title text-uppercase">
+			<h2>Alışverişe Devam Et</h2>
+		</div>
+		<div class="row">
+			@foreach (Product p in Model.Products)
+			{
+				<div class="col-lg-3 col-sm-6">
+					<partial name="_ProductPartialView" model="p"></partial>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+<!-- Related product section end -->

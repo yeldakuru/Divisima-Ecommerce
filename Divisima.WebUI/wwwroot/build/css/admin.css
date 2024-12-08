@@ -1,0 +1,11 @@
+﻿.kResim {
+    position: absolute;
+    width: 120px;
+    height: 60px;
+    border: solid 1px #dcdcdc;
+    top: 0;
+    left: 125px;
+    display: none;
+    transition: linear all 200ms;
+    border-radius: 10px;
+}
